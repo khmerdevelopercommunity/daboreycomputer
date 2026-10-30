@@ -274,6 +274,37 @@
 
         .footer p { margin: 0.5rem 0; opacity: 0.9; }
 
+        .footer-qr {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem auto 1.2rem;
+        }
+
+        .footer-qr img {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            background: #ffffff;
+            padding: 6px;
+            border: 1px solid #2b7a78;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .footer-qr img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+
+        .footer-qr-label {
+            font-size: 0.75rem;
+            color: #9fc9c7;
+            margin-top: 0.4rem;
+            letter-spacing: 0.3px;
+        }
+
         @media (min-width: 640px) {
             .values-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -402,6 +433,13 @@
     </main>
 
     <footer class="footer">
+        <div class="footer-qr">
+            <a href="qr.jpg" download="qr.jpg" title="Download QR">
+                <img src="qr.jpg" alt="QR code to website">
+            </a>
+            <div class="footer-qr-label" data-i18n="qr_label">Scan to visit our website</div>
+        </div>
+
         <p>
             <a href="index.html" data-i18n="nav_home">Home</a> ·
             <a href="about-us.html" data-i18n="nav_about">About</a> ·
@@ -464,7 +502,8 @@
                     v4_title: "Real support",
                     v4_text: "Simple warranty help and after-sales support when you need it.",
                     btn_telegram: "Chat with us on Telegram",
-                    footer_copy: "© 2025 ShopCart. All rights reserved."
+                    footer_copy: "© 2025 ShopCart. All rights reserved.",
+                    qr_label: "Scan to visit our website"
                 },
                 km: {
                     nav_home: "ទំព័រដើម",
@@ -485,7 +524,8 @@
                     v4_title: "ការគាំទ្រពិតប្រាកដ",
                     v4_text: "ជំនួយការធានាដ៏សាមញ្ញ និងការគាំទ្រក្រោយការលក់ នៅពេលអ្នកត្រូវការ។",
                     btn_telegram: "ជជែកជាមួយយើងតាម តេលេក្រាម",
-                    footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។"
+                    footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។",
+                    qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង"
                 }
             };
 
