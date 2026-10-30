@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Mobile first · 10 products · click to Contact to Telegram to buy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f9f9f9;
+            color: #1e1e1e;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.75rem 1rem;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.3px;
+            color: #0b2b40;
+            cursor: pointer;
+        }
+
+        .logo span { color: #2b7a78; }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.9rem;
+            cursor: pointer;
+            color: #1e1e1e;
+            padding: 0.2rem 0.5rem;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .menu-toggle:hover { color: #2b7a78; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3e50;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2b7a78;
+            border-bottom-color: #2b7a78;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #0b2b40;
+            letter-spacing: -0.02em;
+            border-left: 5px solid #2b7a78;
+            padding-left: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            padding: 1.5rem 1.2rem 1.8rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.07);
+        }
+
+        .product-icon {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            color: #2b7a78;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #1e2b37;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #2b7a78;
+            margin-bottom: 1rem;
+        }
+
+        .product-btn {
+            background: #eef6f6;
+            border: none;
+            color: #1e4a5f;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            margin-top: auto;
+            width: 100%;
+            max-width: 140px;
+            letter-spacing: 0.3px;
+            pointer-events: none;
+        }
+
+        .footer {
+            background: #1e2b37;
+            color: #cdd9e5;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            font-size: 0.95rem;
+            border-top: 4px solid #2b7a78;
+        }
+
+        .footer a {
+            color: #9fc9c7;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer .w3-note {
+            display: inline-block;
+            background: #2b7a78;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.3px;
+            font-weight: 600;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        @media (min-width: 640px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.8rem;
+            }
+            .section-title { font-size: 2rem; }
+        }
+
+        @media (max-width: 639px) {
+            .menu-toggle { display: block; }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1.2rem 0 0.6rem;
+                margin-top: 0.5rem;
+                border-top: 1px solid #eaeef2;
+            }
+
+            .nav-links.active { display: flex; }
+
+            .nav-links li { width: 100%; }
+
+            .nav-links a {
+                display: block;
+                padding: 0.7rem 0.5rem;
+                font-size: 1.1rem;
+                border-bottom: 1px solid #f0f4f8;
+                border-radius: 8px;
+            }
+
+            .nav-links a:hover {
+                background: #f4f9fc;
+                border-bottom-color: transparent;
+            }
+
+            .container { margin: 1.5rem auto; }
+            .section-title { font-size: 1.7rem; margin-bottom: 1.5rem; }
+            .product-card { padding: 1.8rem 1rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid { gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo" id="logoBtn">shop<span>cart</span></div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contacts</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PRODUCTS PAGE -->
+    <main class="container" id="productsPage">
+        <h2 class="section-title">Our products (10) — click any to Contact to Telegram to buy</h2>
+        <div class="products-grid" id="productGrid">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Wireless Headphones" data-price="89.99">
+                <div class="product-icon"><i class="fas fa-headphones"></i></div>
+                <div class="product-name">Wireless Headphones</div>
+                <div class="product-price">$89.99</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Smartphone X" data-price="699.00">
+                <div class="product-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="product-name">Smartphone X</div>
+                <div class="product-price">$699.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="UltraBook Pro" data-price="1249.00">
+                <div class="product-icon"><i class="fas fa-laptop"></i></div>
+                <div class="product-name">UltraBook Pro</div>
+                <div class="product-price">$1,249.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Smart Watch" data-price="199.99">
+                <div class="product-icon"><i class="fas fa-watch"></i></div>
+                <div class="product-name">Smart Watch</div>
+                <div class="product-price">$199.99</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="DSLR Camera" data-price="549.00">
+                <div class="product-icon"><i class="fas fa-camera"></i></div>
+                <div class="product-name">DSLR Camera</div>
+                <div class="product-price">$549.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Tablet Air" data-price="329.00">
+                <div class="product-icon"><i class="fas fa-tablet-alt"></i></div>
+                <div class="product-name">Tablet Air</div>
+                <div class="product-price">$329.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Game Controller" data-price="59.99">
+                <div class="product-icon"><i class="fas fa-gamepad"></i></div>
+                <div class="product-name">Game Controller</div>
+                <div class="product-price">$59.99</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Wireless Mouse" data-price="29.99">
+                <div class="product-icon"><i class="fas fa-mouse"></i></div>
+                <div class="product-name">Wireless Mouse</div>
+                <div class="product-price">$29.99</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Mechanical Keyboard" data-price="109.00">
+                <div class="product-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="product-name">Mechanical Keyboard</div>
+                <div class="product-price">$109.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="4K Monitor" data-price="399.00">
+                <div class="product-icon"><i class="fas fa-tv"></i></div>
+                <div class="product-name">4K Monitor</div>
+                <div class="product-price">$399.00</div>
+                <button class="product-btn">Contact to Telegram to buy</button>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="w3-note">W3Schools style</div>
+        <p>
+            <a href="index.html">Home</a> ·
+            <a href="#">About</a> ·
+            <a href="#">Contacts</a>
+        </p>
+        <p>© 2025 ShopCart. All rights reserved.</p>
+        <p style="font-size:0.8rem; opacity:0.7;">Built with <i class="fas fa-heart" style="color:#9fc9c7;"></i> for learning</p>
+    </footer>
+
+    <script>
+        (function() {
+            // ----- HAMBURGER -----
+            const toggleBtn = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (toggleBtn && navLinks) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isActive = navLinks.classList.toggle('active');
+                    toggleBtn.setAttribute('aria-expanded', isActive);
+                    const icon = toggleBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars', !isActive);
+                        icon.classList.toggle('fa-times', isActive);
+                    }
+                });
+
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 639) {
+                            navLinks.classList.remove('active');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                            const icon = toggleBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.add('fa-bars');
+                                icon.classList.remove('fa-times');
+                            }
+                        }
+                    });
+                });
+            }
+
+            // ----- LOGO CLICK = GO HOME -----
+            const logoBtn = document.getElementById('logoBtn');
+            logoBtn.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        })();
+    </script>
+</body>
+</html>
