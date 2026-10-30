@@ -46,9 +46,21 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .logo span { color: #2b7a78; }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: contain;
+            display: block;
+            background: #ffffff;
+            border: 1px solid #e3edf0;
+            padding: 2px;
+        }
 
         .nav-right {
             display: flex;
@@ -57,11 +69,7 @@
             margin-left: auto;
         }
 
-        /* QR in the nav */
-        .nav-qr {
-            display: flex;
-            align-items: center;
-        }
+        .nav-qr { display: flex; align-items: center; }
 
         .nav-qr img {
             width: 64px;
@@ -132,6 +140,11 @@
         }
 
         .nav-links a:hover {
+            color: #2b7a78;
+            border-bottom-color: #2b7a78;
+        }
+
+        .nav-links a.active {
             color: #2b7a78;
             border-bottom-color: #2b7a78;
         }
@@ -258,7 +271,6 @@
             opacity: 0.9;
         }
 
-        /* QR in the footer */
         .footer-qr {
             display: inline-flex;
             flex-direction: column;
@@ -328,6 +340,8 @@
                 border-bottom-color: transparent;
             }
 
+            .nav-links a.active { background: #eef6f6; }
+
             .container { margin: 1.5rem auto; }
             .section-title { font-size: 1.7rem; margin-bottom: 1.5rem; }
             .product-card { padding: 1.8rem 1rem; }
@@ -341,6 +355,9 @@
                 width: 54px;
                 height: 54px;
             }
+
+            .logo { font-size: 1.25rem; }
+            .logo img { width: 34px; height: 34px; }
         }
 
         @media (min-width: 1024px) {
@@ -352,10 +369,12 @@
 
     <header class="header">
         <div class="nav-container">
-            <div class="logo" id="logoBtn">shop<span>cart</span></div>
+            <a class="logo" id="logoBtn" href="index.html" aria-label="Shop home">
+                <img src="logo.jpg" alt="Shop logo">
+                shop
+            </a>
 
             <div class="nav-right">
-                <!-- QR image in the nav: click to download -->
                 <a href="qr.jpg" download="qr.jpg" class="nav-qr" title="Download QR" aria-label="Download QR code">
                     <img src="qr.jpg" alt="QR code">
                 </a>
@@ -368,14 +387,13 @@
             </div>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="index.html" class="active" data-i18n="nav_home">Home</a></li>
                 <li><a href="about-us.html" data-i18n="nav_about">About</a></li>
                 <li><a href="contact.html" data-i18n="nav_contacts">Contacts</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- PRODUCTS PAGE -->
     <main class="container" id="productsPage">
         <h2 class="section-title" data-i18n="section_title">Our products (10) — click any to open Telegram</h2>
         <div class="products-grid" id="productGrid">
@@ -398,7 +416,7 @@
                 <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
             <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="159992" data-usd="39.98">
-                <div class="product-icon"><i class="fas fa-watch"></i></div>
+                <div class="product-icon"><i class="fas fa-clock"></i></div>
                 <div class="product-name" data-i18n="p4">Smart Watch</div>
                 <div class="product-price" data-price></div>
                 <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
@@ -445,7 +463,6 @@
     <footer class="footer">
         <div class="w3-note">W3Schools style</div>
 
-        <!-- QR image in the footer: click to download -->
         <div class="footer-qr">
             <a href="qr.jpg" download="qr.jpg" title="Download QR">
                 <img src="qr.jpg" alt="QR code to website">
@@ -464,7 +481,6 @@
 
     <script>
         (function() {
-            // ----- HAMBURGER -----
             const toggleBtn = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
 
@@ -495,13 +511,6 @@
                 });
             }
 
-            // ----- LOGO CLICK = GO HOME -----
-            const logoBtn = document.getElementById('logoBtn');
-            logoBtn.addEventListener('click', function() {
-                window.location.href = 'index.html';
-            });
-
-            // ----- LANGUAGE SWITCH -----
             const translations = {
                 en: {
                     nav_home: "Home",
@@ -547,7 +556,7 @@
                 }
             };
 
-            let currentLang = 'km'; // default Khmer
+            let currentLang = 'km';
             const langToggle = document.getElementById('langToggle');
 
             function formatNumber(n) {
@@ -591,7 +600,6 @@
                 applyLanguage(currentLang === 'km' ? 'en' : 'km');
             });
 
-            // Init Khmer as default
             applyLanguage('km');
         })();
     </script>

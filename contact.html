@@ -46,9 +46,21 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .logo span { color: #2b7a78; }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: contain;
+            display: block;
+            background: #ffffff;
+            border: 1px solid #e3edf0;
+            padding: 2px;
+        }
 
         .nav-right {
             display: flex;
@@ -309,6 +321,8 @@
             .nav-right { margin-left: auto; gap: 0.5rem; }
             .nav-qr img { width: 54px; height: 54px; }
             .map-wrap iframe { height: 300px; }
+            .logo { font-size: 1.25rem; }
+            .logo img { width: 34px; height: 34px; }
         }
     </style>
 </head>
@@ -316,7 +330,10 @@
 
     <header class="header">
         <div class="nav-container">
-            <div class="logo" id="logoBtn">shop<span>cart</span></div>
+            <a class="logo" id="logoBtn" href="index.html" aria-label="Shop home">
+                <img src="logo.jpg" alt="Shop logo">
+                shop
+            </a>
 
             <div class="nav-right">
                 <a href="qr.jpg" download="qr.jpg" class="nav-qr" title="Download QR" aria-label="Download QR code">
@@ -428,12 +445,6 @@
                     });
                 });
             }
-
-            // ----- LOGO CLICK = GO HOME -----
-            const logoBtn = document.getElementById('logoBtn');
-            logoBtn.addEventListener('click', function() {
-                window.location.href = 'index.html';
-            });
 
             // ----- LANGUAGE SWITCH -----
             const translations = {
