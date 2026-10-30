@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="km">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Mobile first · 10 products · click to Contact to Telegram to buy</title>
+    <title>Mobile first · 10 products · click to open Telegram</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,6 +34,7 @@
             flex-wrap: wrap;
             max-width: 1400px;
             margin: 0 auto;
+            gap: 0.5rem;
         }
 
         .logo {
@@ -42,9 +43,61 @@
             letter-spacing: -0.3px;
             color: #0b2b40;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .logo span { color: #2b7a78; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-left: auto;
+        }
+
+        /* QR in the nav — now larger */
+        .nav-qr {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-qr img {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            border: 1px solid #d6e3e8;
+            background: #ffffff;
+            padding: 3px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-qr img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .lang-toggle {
+            background: #eef6f6;
+            border: 1px solid #cfe3e2;
+            color: #1e4a5f;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.45rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .lang-toggle:hover {
+            background: #2b7a78;
+            color: #ffffff;
+            border-color: #2b7a78;
+        }
 
         .menu-toggle {
             display: none;
@@ -142,9 +195,10 @@
 
         .product-price {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: #2b7a78;
             margin-bottom: 1rem;
+            line-height: 1.4;
         }
 
         .product-btn {
@@ -159,7 +213,7 @@
             transition: background 0.2s, color 0.2s;
             margin-top: auto;
             width: 100%;
-            max-width: 140px;
+            max-width: 200px;
             letter-spacing: 0.3px;
             pointer-events: none;
         }
@@ -203,6 +257,37 @@
             opacity: 0.9;
         }
 
+        /* QR in the footer — unchanged */
+        .footer-qr {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1rem auto 1.2rem;
+        }
+
+        .footer-qr img {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            background: #ffffff;
+            padding: 6px;
+            border: 1px solid #2b7a78;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .footer-qr img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+
+        .footer-qr-label {
+            font-size: 0.75rem;
+            color: #9fc9c7;
+            margin-top: 0.4rem;
+            letter-spacing: 0.3px;
+        }
+
         @media (min-width: 640px) {
             .products-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -244,6 +329,17 @@
             .container { margin: 1.5rem auto; }
             .section-title { font-size: 1.7rem; margin-bottom: 1.5rem; }
             .product-card { padding: 1.8rem 1rem; }
+
+            .nav-right {
+                margin-left: auto;
+                gap: 0.5rem;
+            }
+
+            /* Still large enough to scan on mobile, but fits the header */
+            .nav-qr img {
+                width: 54px;
+                height: 54px;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -257,93 +353,111 @@
         <div class="nav-container">
             <div class="logo" id="logoBtn">shop<span>cart</span></div>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="nav-right">
+                <!-- QR image in the navigation (now larger) -->
+                <a href="index.html" class="nav-qr" title="Scan QR" aria-label="QR code to website">
+                    <img src="qr.jpg" alt="QR code">
+                </a>
+
+                <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contacts</a></li>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="#" data-i18n="nav_about">About</a></li>
+                <li><a href="#" data-i18n="nav_contacts">Contacts</a></li>
             </ul>
         </div>
     </header>
 
     <!-- PRODUCTS PAGE -->
     <main class="container" id="productsPage">
-        <h2 class="section-title">Our products (10) — click any to Contact to Telegram to buy</h2>
+        <h2 class="section-title" data-i18n="section_title">Our products (10) — click any to open Telegram</h2>
         <div class="products-grid" id="productGrid">
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Wireless Headphones" data-price="89.99">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="72000" data-usd="18.00">
                 <div class="product-icon"><i class="fas fa-headphones"></i></div>
-                <div class="product-name">Wireless Headphones</div>
-                <div class="product-price">$89.99</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p1">Wireless Headphones</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Smartphone X" data-price="699.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="559200" data-usd="139.80">
                 <div class="product-icon"><i class="fas fa-mobile-alt"></i></div>
-                <div class="product-name">Smartphone X</div>
-                <div class="product-price">$699.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p2">Smartphone X</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="UltraBook Pro" data-price="1249.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="999200" data-usd="249.80">
                 <div class="product-icon"><i class="fas fa-laptop"></i></div>
-                <div class="product-name">UltraBook Pro</div>
-                <div class="product-price">$1,249.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p3">UltraBook Pro</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Smart Watch" data-price="199.99">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="159992" data-usd="39.98">
                 <div class="product-icon"><i class="fas fa-watch"></i></div>
-                <div class="product-name">Smart Watch</div>
-                <div class="product-price">$199.99</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p4">Smart Watch</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="DSLR Camera" data-price="549.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="439200" data-usd="109.80">
                 <div class="product-icon"><i class="fas fa-camera"></i></div>
-                <div class="product-name">DSLR Camera</div>
-                <div class="product-price">$549.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p5">DSLR Camera</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Tablet Air" data-price="329.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="263200" data-usd="65.80">
                 <div class="product-icon"><i class="fas fa-tablet-alt"></i></div>
-                <div class="product-name">Tablet Air</div>
-                <div class="product-price">$329.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p6">Tablet Air</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Game Controller" data-price="59.99">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="47992" data-usd="11.98">
                 <div class="product-icon"><i class="fas fa-gamepad"></i></div>
-                <div class="product-name">Game Controller</div>
-                <div class="product-price">$59.99</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p7">Game Controller</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Wireless Mouse" data-price="29.99">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="23992" data-usd="5.98">
                 <div class="product-icon"><i class="fas fa-mouse"></i></div>
-                <div class="product-name">Wireless Mouse</div>
-                <div class="product-price">$29.99</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p8">Wireless Mouse</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="Mechanical Keyboard" data-price="109.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="87200" data-usd="21.80">
                 <div class="product-icon"><i class="fas fa-keyboard"></i></div>
-                <div class="product-name">Mechanical Keyboard</div>
-                <div class="product-price">$109.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p9">Mechanical Keyboard</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
-            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-product="4K Monitor" data-price="399.00">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="product-card" data-khr="319200" data-usd="79.80">
                 <div class="product-icon"><i class="fas fa-tv"></i></div>
-                <div class="product-name">4K Monitor</div>
-                <div class="product-price">$399.00</div>
-                <button class="product-btn">Contact to Telegram to buy</button>
+                <div class="product-name" data-i18n="p10">4K Monitor</div>
+                <div class="product-price" data-price></div>
+                <button class="product-btn" data-i18n="buy_btn">Contact to Telegram to buy</button>
             </a>
         </div>
     </main>
 
     <footer class="footer">
         <div class="w3-note">W3Schools style</div>
+
+        <!-- QR image in the footer (unchanged) -->
+        <div class="footer-qr">
+            <a href="index.html" title="Scan QR">
+                <img src="qr.jpg" alt="QR code to website">
+            </a>
+            <div class="footer-qr-label" data-i18n="qr_label">Scan to visit our website</div>
+        </div>
+
         <p>
-            <a href="index.html">Home</a> ·
-            <a href="#">About</a> ·
-            <a href="#">Contacts</a>
+            <a href="index.html" data-i18n="nav_home">Home</a> ·
+            <a href="#" data-i18n="nav_about">About</a> ·
+            <a href="#" data-i18n="nav_contacts">Contacts</a>
         </p>
-        <p>© 2025 ShopCart. All rights reserved.</p>
+        <p data-i18n="footer_copy">© 2025 ShopCart. All rights reserved.</p>
         <p style="font-size:0.8rem; opacity:0.7;">Built with <i class="fas fa-heart" style="color:#9fc9c7;"></i> for learning</p>
     </footer>
 
@@ -385,6 +499,99 @@
             logoBtn.addEventListener('click', function() {
                 window.location.href = 'index.html';
             });
+
+            // ----- LANGUAGE SWITCH -----
+            const translations = {
+                en: {
+                    nav_home: "Home",
+                    nav_about: "About",
+                    nav_contacts: "Contacts",
+                    section_title: "Our products (10) — click any to open Telegram",
+                    buy_btn: "Contact to Telegram to buy",
+                    p1: "Wireless Headphones",
+                    p2: "Smartphone X",
+                    p3: "UltraBook Pro",
+                    p4: "Smart Watch",
+                    p5: "DSLR Camera",
+                    p6: "Tablet Air",
+                    p7: "Game Controller",
+                    p8: "Wireless Mouse",
+                    p9: "Mechanical Keyboard",
+                    p10: "4K Monitor",
+                    footer_copy: "© 2025 ShopCart. All rights reserved.",
+                    currency_khr: "KHR",
+                    currency_usd: "USD",
+                    qr_label: "Scan to visit our website"
+                },
+                km: {
+                    nav_home: "ទំព័រដើម",
+                    nav_about: "អំពីយើង",
+                    nav_contacts: "ទំនាក់ទំនង",
+                    section_title: "ផលិតផលរបស់យើង (10) — ចុចលើផលិតផលណាមួយដើម្បីបើក តេលេក្រាម",
+                    buy_btn: "ទំនាក់ទំនងតាម តេលេក្រាម ដើម្បីទិញ",
+                    p1: "កាសឥតខ្សែ",
+                    p2: "ស្មាតហ្វូន X",
+                    p3: "ឡាប់ថប់ UltraBook Pro",
+                    p4: "នាឡិកាឆ្លាតវៃ",
+                    p5: "កាមេរ៉ា DSLR",
+                    p6: "ថេប្លេត Air",
+                    p7: "ឧបករណ៍បញ្ជាហ្គេម",
+                    p8: "កូនកណ្ដុរឥតខ្សែ",
+                    p9: "ក្តារចុចមេកានិច",
+                    p10: "ម៉ូនីទ័រ 4K",
+                    footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។",
+                    currency_khr: "រៀល",
+                    currency_usd: "ដុល្លារ",
+                    qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង"
+                }
+            };
+
+            let currentLang = 'km'; // default Khmer
+            const langToggle = document.getElementById('langToggle');
+
+            function formatNumber(n) {
+                return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            function renderPrices(lang) {
+                const dict = translations[lang];
+                document.querySelectorAll('.product-card').forEach(card => {
+                    const khr = parseFloat(card.dataset.khr);
+                    const usd = parseFloat(card.dataset.usd);
+                    const priceEl = card.querySelector('[data-price]');
+                    if (!priceEl) return;
+
+                    const khrText = formatNumber(Math.round(khr)) + " " + dict.currency_khr;
+                    const usdText = "$" + usd.toFixed(2) + " " + dict.currency_usd;
+
+                    if (lang === 'km') {
+                        priceEl.textContent = khrText + " · " + usdText;
+                    } else {
+                        priceEl.textContent = usdText + " · " + khrText;
+                    }
+                });
+            }
+
+            function applyLanguage(lang) {
+                const dict = translations[lang];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        el.textContent = dict[key];
+                    }
+                });
+                renderPrices(lang);
+                langToggle.textContent = lang === 'km' ? 'EN' : 'ខ្មែរ';
+                document.documentElement.lang = lang;
+                currentLang = lang;
+            }
+
+            langToggle.addEventListener('click', function() {
+                applyLanguage(currentLang === 'km' ? 'en' : 'km');
+            });
+
+            // Init Khmer as default
+            applyLanguage('km');
         })();
     </script>
 </body>
