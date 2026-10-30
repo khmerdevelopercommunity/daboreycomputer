@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>About us · ShopCart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f9f9f9;
+            color: #1e1e1e;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.75rem 1rem;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.3px;
+            color: #0b2b40;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: #2b7a78; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-left: auto;
+        }
+
+        .nav-qr { display: flex; align-items: center; }
+
+        .nav-qr img {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            border: 1px solid #d6e3e8;
+            background: #ffffff;
+            padding: 3px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-qr img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .lang-toggle {
+            background: #eef6f6;
+            border: 1px solid #cfe3e2;
+            color: #1e4a5f;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.45rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .lang-toggle:hover {
+            background: #2b7a78;
+            color: #ffffff;
+            border-color: #2b7a78;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.9rem;
+            cursor: pointer;
+            color: #1e1e1e;
+            padding: 0.2rem 0.5rem;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .menu-toggle:hover { color: #2b7a78; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3e50;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2b7a78;
+            border-bottom-color: #2b7a78;
+        }
+
+        .nav-links a.active {
+            color: #2b7a78;
+            border-bottom-color: #2b7a78;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #0b2b40;
+            letter-spacing: -0.02em;
+            border-left: 5px solid #2b7a78;
+            padding-left: 1rem;
+        }
+
+        .about-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            padding: 1.8rem 1.4rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .about-lead {
+            font-size: 1.1rem;
+            color: #1e2b37;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: #3a4a58;
+            margin-bottom: 1rem;
+        }
+
+        .about-text:last-child { margin-bottom: 0; }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            padding: 1.3rem 1.2rem;
+        }
+
+        .value-item i {
+            font-size: 1.6rem;
+            color: #2b7a78;
+            width: 2rem;
+            text-align: center;
+            margin-top: 0.1rem;
+        }
+
+        .value-item h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0b2b40;
+            margin-bottom: 0.35rem;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            color: #5a6b78;
+        }
+
+        .btn-telegram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: #2b7a78;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.85rem 1.6rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .btn-telegram:hover {
+            background: #1e4a5f;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #1e2b37;
+            color: #cdd9e5;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            font-size: 0.95rem;
+            border-top: 4px solid #2b7a78;
+        }
+
+        .footer a {
+            color: #9fc9c7;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer p { margin: 0.5rem 0; opacity: 0.9; }
+
+        @media (min-width: 640px) {
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 639px) {
+            .menu-toggle { display: block; }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1.2rem 0 0.6rem;
+                margin-top: 0.5rem;
+                border-top: 1px solid #eaeef2;
+            }
+
+            .nav-links.active { display: flex; }
+            .nav-links li { width: 100%; }
+
+            .nav-links a {
+                display: block;
+                padding: 0.7rem 0.5rem;
+                font-size: 1.1rem;
+                border-bottom: 1px solid #f0f4f8;
+                border-radius: 8px;
+            }
+
+            .nav-links a:hover {
+                background: #f4f9fc;
+                border-bottom-color: transparent;
+            }
+
+            .nav-links a.active { background: #eef6f6; }
+
+            .container { margin: 1.5rem auto; }
+            .section-title { font-size: 1.7rem; margin-bottom: 1.5rem; }
+            .nav-right { margin-left: auto; gap: 0.5rem; }
+            .nav-qr img { width: 54px; height: 54px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo" id="logoBtn">shop<span>cart</span></div>
+
+            <div class="nav-right">
+                <a href="qr.jpg" download="qr.jpg" class="nav-qr" title="Download QR" aria-label="Download QR code">
+                    <img src="qr.jpg" alt="QR code">
+                </a>
+
+                <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="about-us.html" class="active" data-i18n="nav_about">About</a></li>
+                <li><a href="contact.html" data-i18n="nav_contacts">Contacts</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title" data-i18n="about_title">About ShopCart</h2>
+
+        <div class="about-card">
+            <p class="about-lead" data-i18n="about_lead">Your trusted shop for phones, computers, and everyday accessories in Phnom Penh.</p>
+            <p class="about-text" data-i18n="about_text1">ShopCart started as a small idea between friends who were tired of overpriced accessories and confusing warranties. Today we bring together a carefully chosen range of smartphones, laptops, and computer accessories — from wireless headphones and mechanical keyboards to monitors, cameras, and smart watches — all in one place.</p>
+            <p class="about-text" data-i18n="about_text2">We work directly with reliable suppliers so we can keep prices fair and quality high. Every product we list is tested by our team before it reaches you, and every order is handled personally through Telegram, so you always talk to a real person.</p>
+            <p class="about-text" data-i18n="about_text3">Whether you are upgrading your work setup, buying your first laptop, or just looking for a better mouse, we are here to help you choose what actually fits your needs — not what is simply the most expensive.</p>
+        </div>
+
+        <h2 class="section-title" data-i18n="values_title">What we stand for</h2>
+
+        <div class="values-grid">
+            <div class="value-item">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <h3 data-i18n="v1_title">Genuine products</h3>
+                    <p data-i18n="v1_text">We source from trusted suppliers and check every item before it ships.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <i class="fas fa-tags"></i>
+                <div>
+                    <h3 data-i18n="v2_title">Fair prices</h3>
+                    <p data-i18n="v2_text">Honest pricing in both Khmer Riel and US Dollars, with no hidden fees.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <i class="fab fa-telegram"></i>
+                <div>
+                    <h3 data-i18n="v3_title">Personal service</h3>
+                    <p data-i18n="v3_text">Order and ask questions directly through Telegram — we reply fast.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h3 data-i18n="v4_title">Real support</h3>
+                    <p data-i18n="v4_text">Simple warranty help and after-sales support when you need it.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:2rem;">
+            <a href="https://t.me/telegram" target="_blank" rel="noopener" class="btn-telegram">
+                <i class="fab fa-telegram"></i>
+                <span data-i18n="btn_telegram">Chat with us on Telegram</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>
+            <a href="index.html" data-i18n="nav_home">Home</a> ·
+            <a href="about-us.html" data-i18n="nav_about">About</a> ·
+            <a href="contact.html" data-i18n="nav_contacts">Contacts</a>
+        </p>
+        <p data-i18n="footer_copy">© 2025 ShopCart. All rights reserved.</p>
+    </footer>
+
+    <script>
+        (function() {
+            // ----- HAMBURGER -----
+            const toggleBtn = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (toggleBtn && navLinks) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isActive = navLinks.classList.toggle('active');
+                    toggleBtn.setAttribute('aria-expanded', isActive);
+                    const icon = toggleBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars', !isActive);
+                        icon.classList.toggle('fa-times', isActive);
+                    }
+                });
+
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 639) {
+                            navLinks.classList.remove('active');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                            const icon = toggleBtn.querySelector('i');
+                            if (icon) {
+                                icon.classList.add('fa-bars');
+                                icon.classList.remove('fa-times');
+                            }
+                        }
+                    });
+                });
+            }
+
+            // ----- LOGO CLICK = GO HOME -----
+            const logoBtn = document.getElementById('logoBtn');
+            logoBtn.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+
+            // ----- LANGUAGE SWITCH -----
+            const translations = {
+                en: {
+                    nav_home: "Home",
+                    nav_about: "About",
+                    nav_contacts: "Contacts",
+                    about_title: "About ShopCart",
+                    about_lead: "Your trusted shop for phones, computers, and everyday accessories in Phnom Penh.",
+                    about_text1: "ShopCart started as a small idea between friends who were tired of overpriced accessories and confusing warranties. Today we bring together a carefully chosen range of smartphones, laptops, and computer accessories — from wireless headphones and mechanical keyboards to monitors, cameras, and smart watches — all in one place.",
+                    about_text2: "We work directly with reliable suppliers so we can keep prices fair and quality high. Every product we list is tested by our team before it reaches you, and every order is handled personally through Telegram, so you always talk to a real person.",
+                    about_text3: "Whether you are upgrading your work setup, buying your first laptop, or just looking for a better mouse, we are here to help you choose what actually fits your needs — not what is simply the most expensive.",
+                    values_title: "What we stand for",
+                    v1_title: "Genuine products",
+                    v1_text: "We source from trusted suppliers and check every item before it ships.",
+                    v2_title: "Fair prices",
+                    v2_text: "Honest pricing in both Khmer Riel and US Dollars, with no hidden fees.",
+                    v3_title: "Personal service",
+                    v3_text: "Order and ask questions directly through Telegram — we reply fast.",
+                    v4_title: "Real support",
+                    v4_text: "Simple warranty help and after-sales support when you need it.",
+                    btn_telegram: "Chat with us on Telegram",
+                    footer_copy: "© 2025 ShopCart. All rights reserved."
+                },
+                km: {
+                    nav_home: "ទំព័រដើម",
+                    nav_about: "អំពីយើង",
+                    nav_contacts: "ទំនាក់ទំនង",
+                    about_title: "អំពី ShopCart",
+                    about_lead: "ហាងដែលអ្នកអាចទុកចិត្តបានសម្រាប់ទូរស័ព្ទ កុំព្យូទ័រ និងគ្រឿងបន្លាស់ប្រចាំថ្ងៃ នៅរាជធានីភ្នំពេញ។",
+                    about_text1: "ShopCart ចាប់ផ្តើមពីគំនិតតូចមួយរបស់មិត្តភក្តិ ដែលធុញទ្រាន់នឹងគ្រឿងបន្លាស់ថ្លៃពេក និងការធានាដែលច្របូកច្របល់។ សព្វថ្ងៃនេះ យើងប្រមូលផ្តុំទូរស័ព្ទឆ្លាតវៃ ឡាប់ថប់ និងគ្រឿងបន្លាស់កុំព្យូទ័រ ដែលបានជ្រើសរើសយ៉ាងយកចិត្តទុកដាក់ — ចាប់ពីកាសឥតខ្សែ និងក្តារចុចមេកានិច រហូតដល់ម៉ូនីទ័រ កាមេរ៉ា និងនាឡិកាឆ្លាតវៃ — ទាំងអស់នៅកន្លែងតែមួយ។",
+                    about_text2: "យើងធ្វើការផ្ទាល់ជាមួយអ្នកផ្គត់ផ្គង់ដែលអាចទុកចិត្តបាន ដើម្បីរក្សាតម្លៃសមរម្យ និងគុណភាពខ្ពស់។ ផលិតផលនីមួយៗត្រូវបានពិនិត្យដោយក្រុមការងាររបស់យើង មុនពេលដល់ដៃអ្នក ហើយការបញ្ជាទិញនីមួយៗត្រូវបានដោះស្រាយដោយផ្ទាល់តាម តេលេក្រាម ដូច្នេះអ្នកតែងតែនិយាយជាមួយមនុស្សពិត។",
+                    about_text3: "មិនថាអ្នកកំពុងដំឡើងកន្លែងធ្វើការ ទិញឡាប់ថប់ដំបូង ឬគ្រាន់តែចង់បានកូនកណ្ដុរប្រសើរជាងមុន — យើងនៅទីនេះដើម្បីជួយអ្នកជ្រើសរើសអ្វីដែលសមនឹងតម្រូវការពិតរបស់អ្នក មិនមែនអ្វីដែលថ្លៃបំផុតនោះទេ។",
+                    values_title: "អ្វីដែលយើងឈរលើ",
+                    v1_title: "ផលិតផលពិតប្រាកដ",
+                    v1_text: "យើងយកផលិតផលពីអ្នកផ្គត់ផ្គង់ដែលអាចទុកចិត្តបាន និងពិនិត្យគ្រប់ផលិតផលមុនពេលផ្ញើ។",
+                    v2_title: "តម្លៃសមរម្យ",
+                    v2_text: "តម្លៃស្មោះត្រង់ទាំងជារៀល និងដុល្លារ ដោយគ្មានការគិតថ្លៃលាក់កំបាំង។",
+                    v3_title: "សេវាកម្មផ្ទាល់ខ្លួន",
+                    v3_text: "បញ្ជាទិញ និងសួរសំណួរដោយផ្ទាល់តាម តេលេក្រាម — យើងឆ្លើយតបរហ័ស។",
+                    v4_title: "ការគាំទ្រពិតប្រាកដ",
+                    v4_text: "ជំនួយការធានាដ៏សាមញ្ញ និងការគាំទ្រក្រោយការលក់ នៅពេលអ្នកត្រូវការ។",
+                    btn_telegram: "ជជែកជាមួយយើងតាម តេលេក្រាម",
+                    footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។"
+                }
+            };
+
+            let currentLang = 'km';
+            const langToggle = document.getElementById('langToggle');
+
+            function applyLanguage(lang) {
+                const dict = translations[lang];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) el.textContent = dict[key];
+                });
+                langToggle.textContent = lang === 'km' ? 'EN' : 'ខ្មែរ';
+                document.documentElement.lang = lang;
+                currentLang = lang;
+            }
+
+            langToggle.addEventListener('click', function() {
+                applyLanguage(currentLang === 'km' ? 'en' : 'km');
+            });
+
+            applyLanguage('km');
+        })();
+    </script>
+</body>
+</html>
