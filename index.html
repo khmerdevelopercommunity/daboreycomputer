@@ -149,7 +149,7 @@
             border-bottom-color: #2b7a78;
         }
 
-        /* ===== SLIDER BELOW NAV ===== */
+        /* ===== SLIDER ===== */
         .slider {
             position: relative;
             width: 100%;
@@ -161,19 +161,82 @@
         .slider-track {
             position: relative;
             width: 100%;
-            aspect-ratio: 2 / 1;          /* 1600 x 800 = 2:1 */
+            aspect-ratio: 2 / 1;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
             background: #eef3f6;
         }
 
-        .slider-track img {
+        .slider-slides {
+            display: flex;
             width: 100%;
             height: 100%;
-            object-fit: cover;            /* zoom to fill, crop overflow */
-            object-position: center;      /* keep subject centered */
+            transition: transform 0.5s ease;
+        }
+
+        .slider-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
             display: block;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(0,0,0,0.08);
+            color: #1e4a5f;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .slider-arrow:hover { background: #ffffff; transform: translateY(-50%) scale(1.06); }
+        .slider-arrow.prev { left: 12px; }
+        .slider-arrow.next { right: 12px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .slider-dot.active {
+            background: #ffffff;
+            transform: scale(1.25);
         }
 
         .container {
@@ -353,7 +416,6 @@
             }
 
             .nav-links.active { display: flex; }
-
             .nav-links li { width: 100%; }
 
             .nav-links a {
@@ -375,22 +437,16 @@
             .section-title { font-size: 1.7rem; margin-bottom: 1.5rem; }
             .product-card { padding: 1.8rem 1rem; }
 
-            .nav-right {
-                margin-left: auto;
-                gap: 0.5rem;
-            }
-
-            .nav-qr img {
-                width: 54px;
-                height: 54px;
-            }
-
+            .nav-right { margin-left: auto; gap: 0.5rem; }
+            .nav-qr img { width: 54px; height: 54px; }
             .logo { font-size: 1.25rem; }
             .logo img { width: 34px; height: 34px; }
 
-            /* slider mobile tweak */
             .slider { padding: 0 0.8rem; margin-top: 1rem; }
             .slider-track { aspect-ratio: 16 / 10; border-radius: 14px; }
+            .slider-arrow { width: 36px; height: 36px; font-size: 1rem; }
+            .slider-arrow.prev { left: 8px; }
+            .slider-arrow.next { right: 8px; }
         }
 
         @media (min-width: 1024px) {
@@ -427,10 +483,17 @@
         </div>
     </header>
 
-    <!-- ===== SLIDER BELOW NAV ===== -->
-    <section class="slider">
-        <div class="slider-track">
-            <img src="cover.jpg" alt="Promotion banner" loading="eager">
+    <!-- ===== SLIDER ===== -->
+    <section class="slider" aria-label="Promotion banner slider">
+        <div class="slider-track" id="sliderTrack">
+            <div class="slider-slides" id="sliderSlides"></div>
+            <button class="slider-arrow prev" id="sliderPrev" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow next" id="sliderNext" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
     </section>
 
@@ -518,9 +581,9 @@
 
     <script>
         (function() {
+            // ===== HAMBURGER =====
             const toggleBtn = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
-
             if (toggleBtn && navLinks) {
                 toggleBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -532,73 +595,27 @@
                         icon.classList.toggle('fa-times', isActive);
                     }
                 });
-
                 navLinks.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', () => {
                         if (window.innerWidth <= 639) {
                             navLinks.classList.remove('active');
                             toggleBtn.setAttribute('aria-expanded', 'false');
                             const icon = toggleBtn.querySelector('i');
-                            if (icon) {
-                                icon.classList.add('fa-bars');
-                                icon.classList.remove('fa-times');
-                            }
+                            if (icon) { icon.classList.add('fa-bars'); icon.classList.remove('fa-times'); }
                         }
                     });
                 });
             }
 
+            // ===== LANGUAGE SWITCH =====
             const translations = {
-                en: {
-                    nav_home: "Home",
-                    nav_about: "About",
-                    nav_contacts: "Contacts",
-                    section_title: "Our products (10) — click any to open Telegram",
-                    buy_btn: "Contact to Telegram to buy",
-                    p1: "Wireless Headphones",
-                    p2: "Smartphone X",
-                    p3: "UltraBook Pro",
-                    p4: "Smart Watch",
-                    p5: "DSLR Camera",
-                    p6: "Tablet Air",
-                    p7: "Game Controller",
-                    p8: "Wireless Mouse",
-                    p9: "Mechanical Keyboard",
-                    p10: "4K Monitor",
-                    footer_copy: "© 2025 ShopCart. All rights reserved.",
-                    currency_khr: "KHR",
-                    currency_usd: "USD",
-                    qr_label: "Scan to visit our website"
-                },
-                km: {
-                    nav_home: "ទំព័រដើម",
-                    nav_about: "អំពីយើង",
-                    nav_contacts: "ទំនាក់ទំនង",
-                    section_title: "ផលិតផលរបស់យើង (10) — ចុចលើផលិតផលណាមួយដើម្បីបើក តេលេក្រាម",
-                    buy_btn: "ទំនាក់ទំនងតាម តេលេក្រាម ដើម្បីទិញ",
-                    p1: "កាសឥតខ្សែ",
-                    p2: "ស្មាតហ្វូន X",
-                    p3: "ឡាប់ថប់ UltraBook Pro",
-                    p4: "នាឡិកាឆ្លាតវៃ",
-                    p5: "កាមេរ៉ា DSLR",
-                    p6: "ថេប្លេត Air",
-                    p7: "ឧបករណ៍បញ្ជាហ្គេម",
-                    p8: "កូនកណ្ដុរឥតខ្សែ",
-                    p9: "ក្តារចុចមេកានិច",
-                    p10: "ម៉ូនីទ័រ 4K",
-                    footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។",
-                    currency_khr: "រៀល",
-                    currency_usd: "ដុល្លារ",
-                    qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង"
-                }
+                en: { nav_home: "Home", nav_about: "About", nav_contacts: "Contacts", section_title: "Our products (10) — click any to open Telegram", buy_btn: "Contact to Telegram to buy", p1: "Wireless Headphones", p2: "Smartphone X", p3: "UltraBook Pro", p4: "Smart Watch", p5: "DSLR Camera", p6: "Tablet Air", p7: "Game Controller", p8: "Wireless Mouse", p9: "Mechanical Keyboard", p10: "4K Monitor", footer_copy: "© 2025 ShopCart. All rights reserved.", currency_khr: "KHR", currency_usd: "USD", qr_label: "Scan to visit our website" },
+                km: { nav_home: "ទំព័រដើម", nav_about: "អំពីយើង", nav_contacts: "ទំនាក់ទំនង", section_title: "ផលិតផលរបស់យើង (10) — ចុចលើផលិតផលណាមួយដើម្បីបើក តេលេក្រាម", buy_btn: "ទំនាក់ទំនងតាម តេលេក្រាម ដើម្បីទិញ", p1: "កាសឥតខ្សែ", p2: "ស្មាតហ្វូន X", p3: "ឡាប់ថប់ UltraBook Pro", p4: "នាឡិកាឆ្លាតវៃ", p5: "កាមេរ៉ា DSLR", p6: "ថេប្លេត Air", p7: "ឧបករណ៍បញ្ជាហ្គេម", p8: "កូនកណ្ដុរឥតខ្សែ", p9: "ក្តារចុចមេកានិច", p10: "ម៉ូនីទ័រ 4K", footer_copy: "© 2025 ShopCart ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។", currency_khr: "រៀល", currency_usd: "ដុល្លារ", qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង" }
             };
-
             let currentLang = 'km';
             const langToggle = document.getElementById('langToggle');
 
-            function formatNumber(n) {
-                return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+            function formatNumber(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
             function renderPrices(lang) {
                 const dict = translations[lang];
@@ -607,15 +624,9 @@
                     const usd = parseFloat(card.dataset.usd);
                     const priceEl = card.querySelector('[data-price]');
                     if (!priceEl) return;
-
                     const khrText = formatNumber(Math.round(khr)) + " " + dict.currency_khr;
                     const usdText = "$" + usd.toFixed(2) + " " + dict.currency_usd;
-
-                    if (lang === 'km') {
-                        priceEl.textContent = khrText + " · " + usdText;
-                    } else {
-                        priceEl.textContent = usdText + " · " + khrText;
-                    }
+                    priceEl.textContent = (lang === 'km') ? (khrText + " · " + usdText) : (usdText + " · " + khrText);
                 });
             }
 
@@ -623,9 +634,7 @@
                 const dict = translations[lang];
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
-                    if (dict[key]) {
-                        el.textContent = dict[key];
-                    }
+                    if (dict[key]) el.textContent = dict[key];
                 });
                 renderPrices(lang);
                 langToggle.textContent = lang === 'km' ? 'EN' : 'ខ្មែរ';
@@ -638,6 +647,80 @@
             });
 
             applyLanguage('km');
+
+            // ===== SLIDER (loop-based) =====
+            const slides = ["cover1.jpg", "cover2.jpg"]; // ← ADD NEW SLIDES HERE
+
+            const sliderSlides = document.getElementById('sliderSlides');
+            const sliderDots   = document.getElementById('sliderDots');
+            const sliderPrev   = document.getElementById('sliderPrev');
+            const sliderNext   = document.getElementById('sliderNext');
+            const sliderTrack  = document.getElementById('sliderTrack');
+
+            let currentSlide = 0;
+            let autoTimer = null;
+            const AUTO_DELAY = 4000;      // auto-play every 4s
+            const MANUAL_PAUSE = 6000;    // pause auto-play for 6s after manual click
+
+            // Build slides from the array (loop)
+            slides.forEach((src, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'slider-slide';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Slide ' + (i + 1);
+                img.loading = (i === 0) ? 'eager' : 'lazy';
+                slide.appendChild(img);
+                sliderSlides.appendChild(slide);
+
+                const dot = document.createElement('button');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                dot.addEventListener('click', () => { goToSlide(i); manualPause(); });
+                sliderDots.appendChild(dot);
+            });
+
+            function render() {
+                sliderSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+                sliderDots.querySelectorAll('.slider-dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === currentSlide);
+                });
+            }
+
+            function goToSlide(i) {
+                currentSlide = (i + slides.length) % slides.length;
+                render();
+            }
+
+            function nextSlide() { goToSlide(currentSlide + 1); }
+            function prevSlide() { goToSlide(currentSlide - 1); }
+
+            // Auto-play
+            function startAuto() {
+                stopAuto();
+                autoTimer = setInterval(nextSlide, AUTO_DELAY);
+            }
+            function stopAuto() {
+                if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+            }
+            // Manual override: pause auto, restart after delay
+            let manualTimer = null;
+            function manualPause() {
+                stopAuto();
+                if (manualTimer) clearTimeout(manualTimer);
+                manualTimer = setTimeout(startAuto, MANUAL_PAUSE);
+            }
+
+            sliderPrev.addEventListener('click', () => { prevSlide(); manualPause(); });
+            sliderNext.addEventListener('click', () => { nextSlide(); manualPause(); });
+
+            // Optional: pause on hover (nice UX)
+            sliderTrack.addEventListener('mouseenter', stopAuto);
+            sliderTrack.addEventListener('mouseleave', startAuto);
+
+            // Init
+            render();
+            if (slides.length > 1) startAuto();
         })();
     </script>
 </body>
