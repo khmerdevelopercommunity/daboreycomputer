@@ -216,6 +216,39 @@
 
         .contact-row .value a:hover { text-decoration: underline; }
 
+        /* ===== Telegram QR block (new) ===== */
+        .telegram-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0.8rem auto 0.4rem;
+        }
+
+        .telegram-qr img {
+            width: 160px;
+            height: 160px;
+            border-radius: 14px;
+            background: #ffffff;
+            padding: 8px;
+            border: 1px solid #2b7a78;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .telegram-qr img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        .telegram-qr-label {
+            font-size: 0.85rem;
+            color: #5a6b78;
+            margin-top: 0.5rem;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
         .map-wrap {
             border-radius: 20px;
             overflow: hidden;
@@ -354,6 +387,7 @@
             .map-wrap iframe { height: 300px; }
             .logo { font-size: 1.25rem; }
             .logo img { width: 34px; height: 34px; }
+            .telegram-qr img { width: 130px; height: 130px; }
         }
     </style>
 </head>
@@ -412,6 +446,14 @@
                     <div class="label" data-i18n="label_hours">Opening hours</div>
                     <div class="value" data-i18n="hours_value">Mon – Sat, 8:00 AM – 6:00 PM</div>
                 </div>
+            </div>
+
+            <!-- ===== Telegram QR (new) ===== -->
+            <div class="telegram-qr">
+                <a href="telegramqr.jpg" download="telegramqr.jpg" title="Download Telegram QR">
+                    <img src="telegramqr.jpg" alt="Telegram QR code">
+                </a>
+                <div class="telegram-qr-label" data-i18n="telegram_qr_label">Scan to chat with us on Telegram</div>
             </div>
 
             <div style="text-align:center; margin-top:1.2rem;">
@@ -498,7 +540,8 @@
                     btn_telegram: "Message us on Telegram",
                     map_note: "Location shown is approximate — exact coordinates will be updated.",
                     footer_copy: "© 2025 DB Computer. All rights reserved.",
-                    qr_label: "Scan to visit our website"
+                    qr_label: "Scan to visit our website",
+                    telegram_qr_label: "Scan to chat with us on Telegram"
                 },
                 km: {
                     nav_home: "ទំព័រដើម",
@@ -513,7 +556,8 @@
                     btn_telegram: "ផ្ញើសារមកយើងតាម តេលេក្រាម",
                     map_note: "ទីតាំងខាងលើគឺប្រហាក់ប្រហែល — កូអរដោនេពិតប្រាកដនឹងធ្វើបច្ចុប្បន្នភាពនៅពេលក្រោយ។",
                     footer_copy: "© 2025 DB Computer ។ រក្សាសិទ្ធិគ្រប់យ៉ាង។",
-                    qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង"
+                    qr_label: "ស្កេនដើម្បីចូលមើលគេហទំព័ររបស់យើង",
+                    telegram_qr_label: "ស្កេនដើម្បីជជែកជាមួយយើងតាម តេលេក្រាម"
                 }
             };
 
